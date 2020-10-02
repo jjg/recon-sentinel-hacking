@@ -115,7 +115,7 @@ if __name__ == '__main__':
     ds = download_data()
 
     summary = process_data(ds)
-    line_1 = f"New Positives: {summary.iloc[0]['POS_NEW']}"
+    line_1 = f"New: {summary.iloc[0]['POS_NEW']}"
     line_2 = f"{summary.iloc[0]['new_per_100k']}% new per 100k"
 
     lcd_string(line_1, LCD_LINE_1)
