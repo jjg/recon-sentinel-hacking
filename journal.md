@@ -57,6 +57,12 @@ OK, now run the hello-lcd.py script as root.
 
 `sudo ~/venvs/hello-lcd/bin/python ./hello-lcd.py`
 
+Experimented with using some code from the covid repo and ran into a little problem installing dependencies.  This was needed:
+
+`sudo apt install python3-dev`
+
+
+
 # References
 
 * http://files.pine64.org/doc/rock64/ROCK64_Pi-2%20_and_Pi_P5+_Bus.pdf 
