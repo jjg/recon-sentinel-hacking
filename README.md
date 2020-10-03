@@ -2,6 +2,8 @@
 
 Misc. experiments with what is being sold as a $15 dev kit, but in fact is a recycled product called the [Recon Sentinel](https://www.reconsentinel.com).
 
+![LCD displaying Hello World](./img/hello-world.jpeg)
+
 Right now most of the information can be found in the [journal](./journal.md).  As things move along I'll work on adding more to this file.
 
 
