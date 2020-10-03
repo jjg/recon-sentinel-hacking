@@ -75,4 +75,4 @@ Experimented with using some code from the covid repo and ran into a little prob
 
 Trying to build pandas causes me to loose connection with the board.  It's not clear why, or if the board crashes/resets of if it's just the network that drops, but I'm going to give it one more try and if that doesn't work I might just re-write the script so it doesn't depend on pandas.
 
-
+Refactored [covid-lcd.py](./covid-lcd.py) to eliminate the pandas dependency and now it works as expected.  Update the requirements.txt so it can be safely setup and run on the Rock w/o blowing it up.
