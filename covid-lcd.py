@@ -1,10 +1,10 @@
-#!/usr/bin/python3
+# i2c stuff taken from https://shiroku.net/robotics/using-i2c-lcd-on-raspberry-pi/
 
-# Taken from https://shiroku.net/robotics/using-i2c-lcd-on-raspberry-pi/
+import time
+import csv
+import urllib.request
 
 import smbus2 as smbus
-import time
-import pandas as pd
 
 # Define some device parameters
 I2C_ADDR = 0x3f     # I2C device address, if any error, change this address to 0x3f
@@ -80,43 +80,49 @@ def lcd_string(message, line):
         lcd_byte(ord(message[i]), LCD_CHR)
 
 
-# COVID stuff
-def download_data():
-    q = "https://opendata.arcgis.com/datasets/b913e9591eae4912b33dc5b4e88646c5_10.csv?where=GEO%20%3D%20%27County%27&outSR=%7B%22latestWkid%22%3A3857%2C%22wkid%22%3A102100%7D"
-    return pd.read_csv(q)
-
-def process_data(ds):
-    county = "Dodge"
-    county_population = 90005
-
-    dc = ds[ds.NAME == county]
-
-    dc_summary = dc[["DATE", "NEGATIVE", "POSITIVE", "DEATHS", "DTH_NEW", "HOSP_YES", "POS_NEW"]].sort_values(["DATE"], ascending=False).head(20)
-
-    # Reverse the sort
-    dc_summary = dc_summary.sort_values(["DATE"], ascending=True)
-
-    dc_summary["rolling_positive"] = (dc_summary["POSITIVE"]/(dc_summary["POSITIVE"] + dc_summary["NEGATIVE"])) * 100
-
-    # Add a calculated column for the "new cases per 100k of population" from the Harvard model
-    dc_summary["pos_new_rolling"] = dc_summary["POS_NEW"].rolling(7).mean()
-    dc_summary["new_per_100k"] = (dc_summary["pos_new_rolling"] / county_population) * 100000
-
-    # Grab last week and sort
-    dc_summary = dc_summary.tail(7).sort_values(["DATE"], ascending=False)
-
-    return dc_summary
-
-
-
 if __name__ == '__main__':
+
+
+
+    # Get the county-level data from DHS?
+    url = "https://opendata.arcgis.com/datasets/b913e9591eae4912b33dc5b4e88646c5_10.csv?where=GEO%20%3D%20%27County%27&outSR=%7B%22latestWkid%22%3A3857%2C%22wkid%22%3A102100%7D"
+
+    response = urllib.request.urlopen(url)
+    lines = [l.decode("utf-8") for l in response.readlines()]
+    county_rows = csv.DictReader(lines)
+
+    # Extract only the rows for the county we're interested in
+    selected_county_rows = []
+    for row in county_rows:
+        if row["NAME"] == "Dodge":
+            selected_county_rows.append(row)
+
+    # Sort the rows so the most recent is at the top
+    selected_county_rows.sort(key=lambda x: x["DATE"], reverse=True)
+
+    # Grab the most recent day's new positive count
+    pos_new = int(selected_county_rows[0]["POS_NEW"])
+
+    # Compute the 7-day average new positives
+    last_seven_total = 0
+    for i in range(0,7):
+        #print(selected_county_rows[i]["POS_NEW"])
+        last_seven_total += int(selected_county_rows[i]["POS_NEW"])
+
+    pos_new_seven_day_avg = last_seven_total / 7
+
+    # Compute the new positives per 100k
+    county_population = 90005
+    pos_new_per_100k = (pos_new_seven_day_avg / county_population) * 100000
+
+    line_1 = f"New Positive: {pos_new}"
+    line_2 = f"{round(pos_new_per_100k,2)}% per 100k"
+
+    # DEBUG
+    print(line_1)
+    print(line_2)
+
     lcd_init()
-
-    ds = download_data()
-
-    summary = process_data(ds)
-    line_1 = f"New: {summary.iloc[0]['POS_NEW']}"
-    line_2 = f"{summary.iloc[0]['new_per_100k']}% new per 100k"
 
     lcd_string(line_1, LCD_LINE_1)
     lcd_string(line_2, LCD_LINE_2)
