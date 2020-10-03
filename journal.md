@@ -63,9 +63,16 @@ Experimented with using some code from the covid repo and ran into a little prob
 
 
 
-# References
+### References
 
 * http://files.pine64.org/doc/rock64/ROCK64_Pi-2%20_and_Pi_P5+_Bus.pdf 
 * https://www.armbian.com/rock64/
 * https://forum.pine64.org/showthread.php?tid=5902
 * https://shiroku.net/robotics/using-i2c-lcd-on-raspberry-pi/
+
+
+## 10032020
+
+Trying to build pandas causes me to loose connection with the board.  It's not clear why, or if the board crashes/resets of if it's just the network that drops, but I'm going to give it one more try and if that doesn't work I might just re-write the script so it doesn't depend on pandas.
+
+
