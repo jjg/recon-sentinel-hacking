@@ -3,6 +3,7 @@
 # Based on example code from https://shiroku.net/robotics/using-i2c-lcd-on-raspberry-pi/
 #
 
+import time
 import smbus2 as smbus
 
 # Define some device parameters
