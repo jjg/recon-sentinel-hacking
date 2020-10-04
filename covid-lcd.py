@@ -1,8 +1,5 @@
 import csv
 import urllib.request
-
-import smbus2 as smbus
-
 import rslcd
 
 if __name__ == '__main__':
@@ -45,10 +42,10 @@ if __name__ == '__main__':
     print(line_1)
     print(line_2)
 
-    lcd_init()
+    rslcd.lcd_init()
 
-    lcd_string(line_1, LCD_LINE_1)
-    lcd_string(line_2, LCD_LINE_2)
+    rslcd.lcd_string(line_1, rslcd.LCD_LINE_1)
+    rslcd.lcd_string(line_2, rslcd.LCD_LINE_2)
 
 #    while True:
 #        # Send some test
