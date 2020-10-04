@@ -16,8 +16,6 @@ LCD_CMD = 0     # Mode - Sending command
 
 LCD_LINE_1 = 0x80   # LCD RAM address for the 1st line
 LCD_LINE_2 = 0xC0   # LCD RAM address for the 2nd line
-#LCD_LINE_3 = 0x94   # LCD RAM address for the 3rd line
-#LCD_LINE_4 = 0xD4   # LCD RAM address for the 4th line
 
 LCD_BACKLIGHT = 0x08  # On
 
@@ -29,7 +27,6 @@ E_DELAY = 0.0005
 
 # Open I2C interface
 bus = smbus.SMBus(1)
-
 
 def lcd_init():
     # Initialise display

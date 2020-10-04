@@ -46,10 +46,3 @@ if __name__ == '__main__':
 
     rslcd.lcd_string(line_1, rslcd.LCD_LINE_1)
     rslcd.lcd_string(line_2, rslcd.LCD_LINE_2)
-
-#    while True:
-#        # Send some test
-#        lcd_string("Hello      ", LCD_LINE_1)
-#        lcd_string("      World", LCD_LINE_2)
-#
-#        time.sleep(3)
