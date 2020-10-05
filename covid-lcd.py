@@ -36,7 +36,7 @@ if __name__ == '__main__':
     pos_new_per_100k = (pos_new_seven_day_avg / county_population) * 100000
 
     line_1 = f"New Positive: {pos_new}"
-    line_2 = f"{round(pos_new_per_100k,2)}% per 100k"
+    line_2 = f"{round(pos_new_per_100k,2)} per 100k"
 
     # DEBUG
     print(line_1)
