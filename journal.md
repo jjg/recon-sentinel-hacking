@@ -65,10 +65,10 @@ Experimented with using some code from the covid repo and ran into a little prob
 
 ### References
 
-* http://files.pine64.org/doc/rock64/ROCK64_Pi-2%20_and_Pi_P5+_Bus.pdf 
-* https://www.armbian.com/rock64/
-* https://forum.pine64.org/showthread.php?tid=5902
-* https://shiroku.net/robotics/using-i2c-lcd-on-raspberry-pi/
+* `http://files.pine64.org/doc/rock64/ROCK64_Pi-2%20_and_Pi_P5+_Bus.pdf`
+* `https://www.armbian.com/rock64/`
+* `https://forum.pine64.org/showthread.php?tid=5902`
+* `https://shiroku.net/robotics/using-i2c-lcd-on-raspberry-pi/`
 
 
 ## 10032020
@@ -76,3 +76,18 @@ Experimented with using some code from the covid repo and ran into a little prob
 Trying to build pandas causes me to loose connection with the board.  It's not clear why, or if the board crashes/resets of if it's just the network that drops, but I'm going to give it one more try and if that doesn't work I might just re-write the script so it doesn't depend on pandas.
 
 Refactored [covid-lcd.py](./covid-lcd.py) to eliminate the pandas dependency and now it works as expected.  Update the requirements.txt so it can be safely setup and run on the Rock w/o blowing it up.
+
+
+## 10232020
+
+Installed Plex from armbian-config and it worked surprisingly well with little effort other than mounting an NFS share where I have some movie files.
+
+I used this guide to setup NFS and today I'm going to see if it will automount on boot.  I would assume so, but I've had trouble with this recently on Ubuntu so hopefully it's not the same deal with Debian 10.
+
+https://linuxhint.com/mount_nfs_share_debian/
+
+No luck.  Need to tshoot
+
+Weirdly running `sudo mount -a` mounts the NFS share, but for some reason it didn't do it at boot.
+
+
